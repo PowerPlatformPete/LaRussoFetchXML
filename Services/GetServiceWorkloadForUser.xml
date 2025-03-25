@@ -1,0 +1,34 @@
+<fetch>
+    <entity name="ppp_service">
+        <attribute name="ppp_serviceid" alias="ServiceID"/>
+        <attribute name="ppp_airfilter" alias="AirFilter"/>
+        <attribute name="ppp_battery" alias="Battery"/>
+        <attribute name="ppp_brakefluid" alias="BrakeFluid"/>
+        <attribute name="ppp_brakes" alias="Brakes"/>
+        <attribute name="ppp_exhaust" alias="Exhaust"/>
+        <attribute name="ppp_oil" alias="Oil"/>
+        <attribute name="ppp_steering" alias="Steering"/>
+        <attribute name="ppp_suspension" alias="Suspension"/>
+        <attribute name="ppp_tyres" alias="Tyres"/>
+        <attribute name="ppp_details" alias="Details"/>
+        <attribute name="ppp_servicecomplete" alias="ServiceComplete"/>
+        <link-entity name="ppp_vehicle" from="ppp_vehicleid" to="ppp_vehicle" link-type="inner">
+            <attribute name="ppp_registration" alias="Registration"/>
+			<link-entity name="ppp_manufacturer" from="ppp_manufacturerid" to="ppp_manufacturer" link-type="inner">
+				<attribute name="ppp_name" alias="Manufacturer"/>
+			</link-entity>	
+			<link-entity name="ppp_model" from="ppp_modelid" to="ppp_model" link-type="inner">
+				<attribute name="ppp_name" alias="Model"/>
+			</link-entity>		
+        </link-entity>		
+		<link-entity name="contact" from="contactid" to="ppp_customer" link-type="inner">
+			<attribute name="fullname" alias="Customer"/>
+		</link-entity>	
+        <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0"/>
+            <condition attribute="ppp_mechanic" operator="eq" value="@{triggerBody()?['text']}"/>
+            <condition attribute="ppp_servicecomplete" operator="eq" value="0"/>
+        </filter>
+		<order attribute="ppp_reference" descending="false"/>
+	</entity>
+</fetch>
