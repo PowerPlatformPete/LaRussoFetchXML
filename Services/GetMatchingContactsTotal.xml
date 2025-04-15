@@ -1,0 +1,16 @@
+<fetch aggregate="true">
+	<entity name="contact">
+	
+		<attribute name="contactid" alias="RecordCount" aggregate="count"/>
+		
+		<filter type="and">
+			<condition attribute="statecode" operator="eq" value="0"/>
+			<filter type="or">
+				<condition attribute="firstname" operator="begins-with" value="{NameFilterText}"/>
+				<condition attribute="lastname" operator="begins-with" value="{NameFilterText}"/>
+			</filter>	
+			<condition attribute="emailaddress1" operator="begins-with" value="{EmailFilterText}"/>
+			<condition attribute="birthdate" operator="on-or-after" value="{DateFilterText}"/>
+		</filter>
+	</entity>
+</fetch>

@@ -1,0 +1,21 @@
+<fetch count="{PageSize}" page="{CurrentPage}">
+	<entity name="contact">
+	
+		<attribute name="fullname" alias="FullName"/>
+		<attribute name="emailaddress1" alias="Email"/>
+		<attribute name="telephone1" alias="Phone"/>
+		<attribute name="birthdate" alias="Birthday"/>
+		
+		<filter type="and">
+			<condition attribute="statecode" operator="eq" value="0"/>
+			<filter type="or">
+				<condition attribute="firstname" operator="begins-with" value="{NameFilterText}"/>
+				<condition attribute="lastname" operator="begins-with" value="{NameFilterText}"/>
+			</filter>	
+			<condition attribute="emailaddress1" operator="begins-with" value="{EmailFilterText}"/>
+			<condition attribute="birthdate" operator="on-or-after" value="{DateFilterText}"/>
+		</filter>
+		
+		<order attribute="fullname" ascending="true"/>
+	</entity>
+</fetch>
